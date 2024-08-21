@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maaz Perfume Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: red;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo img {
+            max-height: 50px; /* Adjust as needed */
+            width: auto;
+        }
+
+        nav {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+        #searchBar {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 400px;
+            background-size: contain;  /* Change from cover to contain */
+            background-position: center; /* Keep the image centered */
+            background-repeat: no-repeat; /* Prevent background repetition */
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        section {
+            padding: 2rem;
+            display: none; /* Initially hide all sections */
+        }
+
+        section.active {
+            display: block; /* Show the active section */
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        Worldwide Free Shipping. +92 3138210740
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Maaz Perfume Store Logo"> <!-- Add your logo image here -->
+        </div>
+        <nav>
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('products')">Products</a></li>
+                <li><a onclick="showSection('about')">About Us</a></li>
+            </ul>
+        </nav>
+        <input type="text" placeholder="Search..." id="searchBar">
+    </header>
+
+    <!-- Home Section with Slideshow -->
+    <section id="home" class="active">
+        <div class="slideshow">
+            <div class="slides">
+                <div class="slide" style="background-image: url('https://img.freepik.com/premium-photo/perfume-bottle-isolated_1144934-335.jpg');"></div>
+                <div class="slide" style="background-image: url('https://img.freepik.com/premium-photo/luxury-perfume-bottle-white-background_1021079-1209.jpg');"></div>
+                <div class="slide" style="background-image: url('https://img.freepik.com/premium-photo/elegant-perfume-bottle-front-colour-splash-generated-by-ai_942243-4328.jpg?w=360');"></div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <h1>Our Products</h1>
+        <p>Explore our range of premium perfumes...</p>
+        <!-- Product list will go here -->
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <h1>About Us</h1>
+        <p>Welcome to Maaz Perfume Store. We offer the finest fragrances from around the world. Our passion for perfumes drives us to bring you the best in luxury scents...</p>
+    </section>
+
+    <script>
+        // Function to show the selected section and hide the others
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Slideshow functionality
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = document.querySelectorAll('.slide').length;
+
+            currentSlide = (index + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function moveSlide(step) {
+            showSlide(currentSlide + step);
+        }
+
+        // Auto slide every 3 seconds
+        setInterval(() => {
+            moveSlide(1);
+        }, 3000);
+    </script>
+</body>
+</html>
