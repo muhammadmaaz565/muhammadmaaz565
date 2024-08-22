@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maaz Perfume Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: red;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo img {
+            max-height: 50px;
+            width: auto;
+        }
+
+        nav {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+        #searchBar {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 400px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        section {
+            padding: 2rem;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 200px; /* Set a fixed width */
+            height: 200px; /* Set a fixed height */
+            object-fit: cover; /* Ensure images cover the area without distortion */
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-card button {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .product-card button:hover {
+            background-color: #555;
+        }
+
+        .cart-summary {
+            background-color: #fff;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .cart-summary.active {
+            display: block;
+        }
+
+        .cart-summary h3 {
+            margin-bottom: 1rem;
+        }
+
+        .cart-summary p {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .cart-summary button {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cart-summary button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        Worldwide Free Shipping. +92 3138210740
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Maaz Perfume Store Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('products')">Products</a></li>
+                <li><a onclick="showSection('about')">About Us</a></li>
+            </ul>
+        </nav>
+        <input type="text" placeholder="Search..." id="searchBar">
+    </header>
+
+    <section id="home" class="active">
+        <div class="slideshow">
+            <div class="slides">
+                <div class="slide" style="background-image: url('https://img.freepik.com/premium-photo/perfume-bottle-isolated_1144934-335.jpg');"></div>
+                <div class="slide" style="background-image: url('https://img.freepik.com/premium-photo/luxury-perfume-bottle-white-background_1021079-1209.jpg');"></div>
+                <div class="slide" style="background-image: url('https://img.freepik.com/premium-photo/elegant-perfume-bottle-front-colour-splash-generated-by-ai_942243-4328.jpg?w=360');"></div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNXN2gGhla6CO3akVpp6OeMV9baimQm5Jt9g&s" alt="Product 1">
+                <h3>Product 1</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 1', 2000)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtzCH2Y6r0dlz_SvNANSkC-V3c52HWkLeenuZjhfU0-o&usqp=CAU" alt="Product 2">
+                <h3>Product 2</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 2', 2000)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPmVfVP69MNbhQUwTuEfRmUejoRWghbMo1Aw&s" alt="Product 3">
+                <h3>Product 3</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 3', 2000)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShO8foVOIf7VsXTVBWeWZR2W4kZdxMP8J0HQ&s" alt="Product 4">
+                <h3>Product 4</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 4', 2000)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSskV01RjThTDw3Fd9x_OLjG5-IXo1Ev5ZTtg&s" alt="Product 5">
+                <h3>Product 5</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 5', 2000)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxDvrC3Ij0Jm48vvOAgDAZnMGZk25i7dNL9CUh2mSzszM&s" alt="Product 6">
+                <h3>Product 6</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 6', 2000)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPmVfVP69MNbhQUwTuEfRmUejoRWghbMo1Aw&s" alt="Product 7">
+                <h3>Product 7</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 7', 2000)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSskV01RjThTDw3Fd9x_OLjG5-IXo1Ev5ZTtg&s" alt="Product 8">
+                <h3>Product 8</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 8', 2000)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="cart-summary" id="cartSummary">
+            <h3>Cart Summary</h3>
+            <p id="cartDetails">Your cart is empty.</p>
+            <button onclick="checkout()">Checkout</button>
+        </div>
+    </section>
+
+    <section id="products">
+        <h1>Our Products</h1>
+        <p>Explore our range of premium perfumes...</p>
+    </section>
+
+    <section id="about">
+        <h1>About Us</h1>
+        <p>Welcome to Maaz Perfume Store. We offer the finest fragrances from around the world...</p>
+    </section>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        let cart = [];
+
+        function addToCart(productName, productPrice) {
+            cart.push({ name: productName, price: productPrice });
+            updateCartSummary();
+        }
+
+        function updateCartSummary() {
+            const cartSummary = document.getElementById('cartSummary');
+            const cartDetails = document.getElementById('cartDetails');
+
+            if (cart.length > 0) {
+                cartSummary.classList.add('active');
+
+                let totalItems = cart.length;
+                let totalPrice = cart.reduce((sum, product) => sum + product.price, 0);
+
+                cartDetails.innerHTML = `Total Items: ${totalItems} <br> Total Price: Rs. ${totalPrice}`;
+            } else {
+                cartSummary.classList.remove('active');
+                cartDetails.innerHTML = 'Your cart is empty.';
+            }
+        }
+
+        function checkout() {
+            alert('Proceeding to checkout!');
+            // Checkout process would go here
+        }
+
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = document.querySelectorAll('.slide').length;
+            currentSlide = (index + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function moveSlide(step) {
+            showSlide(currentSlide + step);
+        }
+
+        setInterval(() => moveSlide(1), 3000);
+    </script>
+</body>
+</html>
