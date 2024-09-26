@@ -1,0 +1,46 @@
+document.querySelector('.search-icon').addEventListener('click', () => {
+    document.querySelector('.search-container').classList.toggle('active');
+    document.getElementById('searchBar').focus();
+});
+Kya ho raha hai: Jab koi search icon pe click karega, toh search-container ke class list mein active class toggle ho jaayegi. Iska matlab hai ke search bar dikhna ya chhupna shuru ho jaayega.
+toggle('active'): Agar active class pehle se lagi hui hai, toh wo hata di jaayegi, aur agar nahi lagi hui, toh laga di jaayegi.
+focus(): Jaise hi search icon pe click hota hai, search bar automatically focus mein aata hai taake user seedha typing start kar sake.
+Search Functionality:
+
+javascript
+Copy code
+document.getElementById('searchBar').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        if (title.includes(query)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+Kya ho raha hai: Jab user search bar mein kuch type karta hai (input event), yeh function run hota hai.
+query = this.value.toLowerCase(): Yeh line search bar mein typed text ko lowercase mein convert karke store kar leti hai, taake comparison case-insensitive ho (chhoti ya badi letters ka farq na ho).
+productCards: Yeh variable sab product cards ko select karta hai jo tumhare product grid mein hain (jinpe .product-card class lagi hui hai).
+Filter Products:
+
+javascript
+Copy code
+productCards.forEach(card => {
+    const title = card.querySelector('h3').textContent.toLowerCase();
+    if (title.includes(query)) {
+        card.style.display = 'block';
+    } else {
+        card.style.display = 'none';
+    }
+});
+Har product card ka title (jo h3 element mein hota hai) uthaya jaata hai aur lowercase mein convert kiya jaata hai.
+Phir check kiya jaata hai ke title mein search query (jo user ne type ki hai) hai ya nahi. Agar title mein search query mil jaaye, toh card dikhaya jaata hai (display: 'block'), aur agar nahi mile, toh us card ko chhupa diya jaata hai (display: 'none').
+Samajhne ka Asaan Tarika:
+Jab tum search icon pe click karte ho, search bar dikh jaata hai.
+Jab tum search bar mein type karte ho, code products ke titles ko tumhari query ke sath compare karta hai.
+Jo titles tumhari query se match karte hain, wo products dikhte hain, aur jo match nahi karte, wo hide ho jaate hain.
+Simple tareeke se, tum search kar rahe ho, aur products real-time filter hote ja rahe hain!
