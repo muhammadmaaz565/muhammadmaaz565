@@ -1,0 +1,49 @@
+function addToCart(productName, productPrice) {
+    cart.push({ name: productName, price: productPrice });
+    updateCart();
+    animateAddToCart();
+}
+Kya ho raha hai: Jab user kisi product pe 'Add to Cart' button click karta hai, toh yeh function call hota hai.
+cart.push({ name: productName, price: productPrice }): Yeh line product ka naam aur uski price ko ek object ki form mein cart array ke andar push karti hai.
+updateCart(): Is function ke baad, cart ko update kiya jaata hai taake updated items cart mein dikhayi de.
+animateAddToCart(): Yeh function call hota hai taake user ko visual feedback mile jab wo koi item cart mein add karta hai. (Is function ki detail neeche discuss karenge.)
+updateCart Function:
+
+javascript
+Copy code
+function updateCart() {
+    const cartCount = document.getElementById('cartCount');
+    const cartSummary = document.getElementById('cartSummary');
+
+    cartCount.textContent = cart.length;
+
+    if (cart.length > 0) {
+        cartSummary.innerHTML = '<h3>Your Cart</h3>' +
+            cart.map(item => `<p>${item.name} - Rs. ${item.price}</p>`).join('') +
+            `<button onclick="checkout()">Checkout</button>`;
+    } else {
+        cartSummary.innerHTML = '<h3>Your Cart is Empty</h3><p>Add products to your cart to see them here.</p>';
+    }
+    cartSummary.classList.add('active');
+}
+cartCount.textContent = cart.length;: Is line se cart ke icon par items ki total quantity dikhayi jaati hai. Cart mein jitne items honge, utni count yahan update ho jaayegi.
+Cart Summary: Agar cart mein koi item hoga (i.e., cart.length > 0), toh cart ke andar ek list banayi jaayegi jo har product ka naam aur price show karegi:
+html
+Copy code
+<p>Product Name - Rs. Product Price</p>
+Yeh list cart.map() ke zariye banayi jaati hai, jo cart ke har item ko map karta hai aur uske naam aur price ko show karta hai.
+Saath mein, "Checkout" ka button bhi show hota hai.
+Agar Cart Khaali Ho: Agar cart mein koi item nahi hai (i.e., cart.length === 0), toh yeh message dikhayi jaata hai:
+html
+Copy code
+<h3>Your Cart is Empty</h3>
+<p>Add products to your cart to see them here.</p>
+cartSummary.classList.add('active'): Yeh line cart summary ko visible banane ke liye use ki jaati hai (is active class ke zariye).
+animateAddToCart Function:
+
+javascript
+Copy code
+function animateAddToCart() {
+    // This function could have animations, like a visual effect when the item is added to the cart
+}
+Kya ho raha hai: Yeh function tab chalaya jaata hai jab user koi product cart mein add kare. Ismein typically kuch animations hon sakti hain jaise cart icon ka hilna ya glow karna, ya koi visual indicator ki item successfully cart mein add ho gaya. Is code mein iska implementation abhi nahi diya gaya, lekin yeh placeholder hai jahan tum animations add kar sakte ho
