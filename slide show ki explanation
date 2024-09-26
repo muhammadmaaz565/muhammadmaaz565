@@ -1,0 +1,21 @@
+Dekho, yeh JavaScript ka code ek simple slideshow banane ke liye hai. Ismein do main functions hain: ek showSlide aur doosra moveSlide.
+
+showSlide function:
+Yeh function ek number (index) leta hai, jo batata hai ke konsi slide dikhani hai. Phir wo slides ko is tarah move karta hai ke jo current slide hai wo dikhai de:
+
+javascript
+Copy code
+currentSlide = (index + slides.length) % slides.length;
+Iska matlab hai ke agar tumhe pehli slide dikhani hai toh slide ko 0 pe le aayega, agar doosri slide dikhani hai toh 1 pe, aur agar peechay waapas jaana ho toh negative numbers se bhi kaam chalayega.
+
+Phir yeh line:
+
+javascript
+Copy code
+document.querySelector('.slides').style.transform = `translateX(-${currentSlide * 100}%)`;
+Iska matlab hai ke jo bhi current slide hai, usko dikhane ke liye slides ko left-right shift karta hai.
+
+moveSlide function:
+Yeh function bas current slide ka number badhata ya ghatata hai, depending on tum kaunsi direction mein move kar rahe ho (aage ya peechay). Tum agar -1 doge, toh ek slide peechay chali jaayegi, aur agar +1 doge, toh ek slide aage chali jaayegi.
+
+Bas, yeh code tumhare slideshow ko left ya right move karane ke liye hai jab tum buttons dabaate ho
