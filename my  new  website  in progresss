@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUMA FABRICS</title>
+    <style>
+  
+  section {
+    display: none;
+}
+
+section.active {
+    display: block;
+}
+   .login-form, .signup-form {
+            max-width: 400px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(-30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .login-form.active, .signup-form.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .login-form h2, .signup-form h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .login-form input, .signup-form input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-form button, .signup-form button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-form button:hover, .signup-form button:hover {
+            background-color: #000;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            cursor: pointer;
+            color: #007BFF;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: red;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+       .logo{
+            font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Lobster', cursive;
+        }
+
+        .logo img {
+            max-height: 50px;
+            width: auto;
+        }
+
+        nav {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+      .search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-right: 2rem;
+    }
+
+    /* Hide the search input initially */
+    .search-input {
+        width: 0;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: width 0.4s ease;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        pointer-events: none;
+        outline: none;
+    }
+
+    /* Style the search icon */
+    .search-icon {
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: white;
+    }
+
+    /* Focus and expand the search input */
+    .search-container.active .search-input {
+        width: 200px;
+        opacity: 1;
+        pointer-events: all;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+      
+
+        .cart-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .cart-count {
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+        }
+
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 400px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+            background: #000
+        }
+
+        .next {
+            right: 10px;
+            background: #000
+        }
+
+        section {
+            padding: 2rem;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+
+ .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        display: flex;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 800px;
+        width: 90%;
+    }
+
+    .modal-left {
+        flex: 1;
+        padding-right: 20px;
+    }
+
+    .modal-left img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .modal-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .regular-price {
+        text-decoration: line-through;
+        color: #888;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #000;
+    }
+
+    .modal-right select,
+    .modal-right input[type="number"] {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    .modal-right button {
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+
+    .modal-right button:hover {
+        background-color: #444;
+    }
+
+
+
+
+
+
+        /* Size dropdown */
+        .size-select {
+            margin: 10px 0;
+        }
+
+/* Desktop and larger screens */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+        gap: 1rem;
+    }
+
+    .product-card img {
+        width: 80px; /* Adjust image size for smaller screens */
+        height: 150px;
+    }
+
+    .product-card {
+        padding: 0.5rem; /* Reduce padding */
+    }
+
+    .product-card h3 {
+        font-size: 1rem; /* Adjust font size */
+    }
+
+    .product-card p {
+        font-size: 0.875rem; /* Adjust font size */
+    }
+
+    .product-card button {
+        padding: 0.4rem 0.8rem; /* Adjust button size */
+    }
+}
+        .cart-summary {
+            background-color: #fff;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .cart-summary.active {
+            display: block;
+        }
+
+        .cart-summary h3 {
+            margin-bottom: 1rem;
+        }
+
+        .cart-summary p {
+            font-size: 1rem;
+            color: #000;
+        }
+
+        .cart-summary button {
+            background-color: #000;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cart-summary button:hover {
+            background-color: #000;
+        }
+
+        /* Animation for flying to cart */
+        @keyframes flyToCart {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(500px, -500px);
+                opacity: 0;
+            }
+        }
+
+        .flying-image {
+            position: absolute;
+            z-index: 1000;
+            animation: flyToCart 1s ease forwards;
+        }
+        @keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#account.active {
+    animation: slideIn 0.5s ease forwards;
+}
+
+
+/* Footer Styles */
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    position: relative; /* Make sure the footer is at the end of home section */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1 1 200px; /* Ensure sections are responsive */
+    margin: 1rem;
+}
+
+.footer-section h4 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.footer-section p, .footer-section ul {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-section p {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Newsletter Form Styles */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.newsletter-form input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+.newsletter-form button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: red;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+}
+
+.newsletter-form button:hover {
+    background-color: red;
+}
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.m-hamburger_box__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 25px;
+}
+
+.m-hamburger_box__inner__line {
+    width: 30px;
+    height: 3px;
+    background-color: #fff;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav {
+    display: none;
+    position: absolute;
+    top: 60px; /* Adjust as needed */
+    right: 0;
+    background-color: #000;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav ul li {
+    margin: 1rem 0;
+}
+
+.mobile-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.25rem;
+    display: block;
+    padding: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.mobile-nav ul li a:hover {
+    background-color: #000;
+    border-radius: 5px;
+}
+
+/* Show hamburger menu on smaller screens */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
+    nav {
+        display: none;
+    }
+}
+    </style>
+<body>
+    <div class="top-bar">
+        Worldwide Free Shipping. +92 3138210740
+    </div>
+
+    <header>
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="m-hamburger_box__inner">
+                <div class="m-hamburger_box__inner__line"></div>
+                <div class="m-hamburger_box__inner__line"></div>
+                <div class="m-hamburger_box__inner__line"></div>
+            </div>
+        </div>
+
+        <nav id="mobileNav" class="mobile-nav">
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('products')">Products</a></li>
+                <li><a onclick="showSection('about')">About Us</a></li>
+                <li><a onclick="showSection('cart')">My Cart</a></li>
+            </ul>
+        </nav>
+
+        <img src="images/logo.png" alt="HUMA FABRICS">
+        
+        <nav>
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('products')">Products</a></li>
+                <li><a onclick="showSection('about')">About Us</a></li>
+                <li><a onclick="showSection('cart')">My Cart</a></li>
+            </ul>
+        </nav>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Search..." id="searchBar" class="search-input">
+            <i class="search-icon">&#128269;</i>
+        </div>
+
+        <div class="cart-icon" onclick="showSection('cart')">
+            &#128722;
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+
+    <section id="home" class="active">
+        <div class="slideshow">
+            <div class="slides">
+                <div class="slide" style="background-image: url(https://areejstore.com/cdn/shop/products/050A2525.jpg?v=1668540681&width=713);"></div>
+                <div class="slide" style="background-image: url(https://areejstore.com/cdn/shop/products/17.jpg?v=1668776736&width=713);"></div>
+                <div class="slide" style="background-image: url(https://areejstore.com/cdn/shop/products/28.jpg?v=1668777063&width=713);"></div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+ <section class="product-grid">
+    <div class="product-card" onclick="openModal('Product 1', 'Rs. 8,490.00', 'Rs. 16,500.00', 'Signature Winter Wear \'24 Collection: Men\'s Formal Suiting Waistcoat...', ['SMALL', 'MEDIUM', 'LARGE', 'X-LARGE'], 'https://areejstore.com/cdn/shop/files/050A2198.jpg?v=1727300000&width=713')">
+        <img src="https://areejstore.com/cdn/shop/files/050A2198.jpg?v=1727300000&width=713" alt="Product 1">
+        <h3>Product 1</h3>
+        <p>Price: Rs. 8,490.00</p>
+    </div>
+    <!-- Repeat for other products -->
+</section>
+
+<!-- Modal Structure -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <div class="modal-left">
+            <img id="modalImage" src="" alt="Product Image">
+        </div>
+        <div class="modal-right">
+            <h3 id="modalTitle"></h3>
+            <p id="salePrice"></p>
+            <p id="regularPrice" class="regular-price"></p>
+            <p id="modalDescription"></p>
+            <label for="sizeSelect">Size:</label>
+            <select id="sizeSelect"></select>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" value="1" min="1">
+            <button onclick="addToCartFromModal()">Add to Cart</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    <section id="products">
+        <h1>Our Products</h1>
+        <div class="product-grid">
+        <div class="product-card">
+                <img src="#" alt="Product 1">
+                <h3>Product 7</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 7', 2000)">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="#" alt="Product 2">
+                <h3>Product 8</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 8', 2000)">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="#" alt="Product 3">
+                <h3>Product 9</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 9', 2000)">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="#" alt="Product 4">
+                <h3>Product 10</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 10', 2000)">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="#" alt="Product 5">
+                <h3>Product 11</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 11', 2000)">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="#" alt="Product 6">
+                <h3>Product 12</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 12', 2000)">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="#" alt="Product 7">
+                <h3>Product 13</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 13', 2000)">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="#" alt="Product 8">
+                <h3>Product 14</h3>
+                <p>Price: Rs. 2000</p>
+                <button onclick="addToCart('Product 14', 2000)">Add to Cart</button>
+            </div>
+
+    
+    </section>
+
+
+    <section id="about">
+        <h1>About Us</h1>
+           
+    </section>
+
+    <section id="cart">
+         <h1>My Cart</h1>
+    <div id="cartSummary" class="cart-summary">
+        <h3>Your Cart is Empty</h3>
+        <p>Add products to your cart to see them here.</p>
+    </div>
+    </section>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Welcome to HUMA FABRICS. We offer the premium quality fabrics to make your wodrobe special.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/muh_ammadmaaz657?igsh=d3E1d3g2M2hqeTJi">Instagram</a></li>
+                    <li><a href="https://youtube.com/@m.maaz-657?si=jQxKrJDs1W_-uAg0">Youtube</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">sign-up</button>
+                </form>
+            </div>
+        </div>
+        <p>&copy; 2024 HUMA FABRICS. All rights reserved.</p>
+    </footer>
+
+
+  <script>
+// JavaScript for slideshow
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            currentSlide = (index + slides.length) % slides.length;
+            document.querySelector('.slides').style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function moveSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+
+        // JavaScript for section navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+           // JavaScript for search bar
+       
+        // JavaScript for search functionality
+document.querySelector('.search-icon').addEventListener('click', () => {
+    document.querySelector('.search-container').classList.toggle('active');
+    document.getElementById('searchBar').focus();
+});
+
+document.getElementById('searchBar').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        if (title.includes(query)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+
+
+
+
+function openModal(title, salePrice, regularPrice, description, sizes, imageUrl) {
+    // Set modal content
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('salePrice').textContent = `Sale Price: ${salePrice}`;
+    document.getElementById('regularPrice').textContent = `Regular Price: ${regularPrice}`;
+    document.getElementById('modalDescription').textContent = description;
+    document.getElementById('modalImage').src = imageUrl;
+
+    // Populate size options
+    const sizeSelect = document.getElementById('sizeSelect');
+    sizeSelect.innerHTML = '';
+    sizes.forEach(size => {
+        const option = document.createElement('option');
+        option.value = size;
+        option.textContent = size;
+        sizeSelect.appendChild(option);
+    });
+
+    // Show the modal
+    document.getElementById('productModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('productModal').style.display = 'none';
+}
+
+function addToCartFromModal() {
+    const title = document.getElementById('modalTitle').textContent;
+    const price = document.getElementById('salePrice').textContent.split(': ')[1];
+    const size = document.getElementById('sizeSelect').value;
+    const quantity = document.getElementById('quantity').value;
+
+    alert(`${quantity} of ${title} (Size: ${size}) added to cart!`);
+}
+let cart = [];
+
+function openModal(title, salePrice, regularPrice, description, sizes, imageUrl) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('salePrice').textContent = `Sale Price: Rs. ${salePrice}`;
+    document.getElementById('regularPrice').textContent = `Regular Price: Rs. ${regularPrice}`;
+    document.getElementById('modalDescription').textContent = description;
+    document.getElementById('modalImage').src = imageUrl;
+
+    const sizeSelect = document.getElementById('sizeSelect');
+    sizeSelect.innerHTML = '';
+    sizes.forEach(size => {
+        const option = document.createElement('option');
+        option.value = size;
+        option.textContent = size;
+        sizeSelect.appendChild(option);
+    });
+
+    document.getElementById('productModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('productModal').style.display = 'none';
+}
+
+function addToCartFromModal() {
+    const title = document.getElementById('modalTitle').textContent;
+    const price = parseFloat(document.getElementById('salePrice').textContent.replace('Sale Price: Rs. ', ''));
+    const size = document.getElementById('sizeSelect').value;
+    const quantity = parseInt(document.getElementById('quantity').value);
+
+    for (let i = 0; i < quantity; i++) {
+        cart.push({ name: title, price: price, size: size });
+    }
+    updateCart();
+    showSection('cart');
+}
+
+function updateCart() {
+    const cartCount = document.getElementById('cartCount');
+    const cartSummary = document.getElementById('cartSummary');
+    cartCount.textContent = cart.length;
+
+    if (cart.length > 0) {
+        let totalPrice = cart.reduce((total, item) => total + item.price, 0);
+        cartSummary.innerHTML = '<h3>Your Cart</h3>' +
+            cart.map(item => `<p>${item.name} (Size: ${item.size}) - Rs. ${item.price}</p>`).join('') +
+            `<p><strong>Total: Rs. ${totalPrice}</strong></p>` +
+            `<button onclick="checkout()">Checkout</button>`;
+    } else {
+        cartSummary.innerHTML = '<h3>Your Cart is Empty</h3><p>Add products to your cart to see them here.</p>';
+    }
+    cartSummary.classList.add('active');
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty. Please add items to the cart before checking out.');
+        return;
+    }
+
+    let totalPrice = cart.reduce((total, item) => total + item.price, 0);
+    let confirmationMessage = `You are purchasing the following items:\n\n`;
+    cart.forEach((item, index) => {
+        confirmationMessage += `${index + 1}. ${item.name} (Size: ${item.size}) - Rs. ${item.price}\n`;
+    });
+    confirmationMessage += `\nTotal Price: Rs. ${totalPrice}\n\n`;
+    confirmationMessage += `Thank you for your purchase!`;
+
+    alert(confirmationMessage);
+    cart = [];
+    updateCart();
+}
+
+function showSection(sectionId) {
+    document.querySelectorAll('section').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId).style.display = 'block';
+}
+
+
+
+
+</script>
